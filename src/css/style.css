@@ -1,0 +1,25 @@
+#board {
+	width: 80%;
+	margin-left: 10%;
+    margin-top: 4%;
+}
+
+#nav{
+	padding: 15px;
+	box-shadow: #fdd200ad 0px -4px 50px;
+}
+
+#sticky_note{
+	margin-left: 55px;
+	width: 1100px;
+}
+
+#bulb{
+	margin-left: 50px;
+    margin-top: -5px;
+}
+
+img{
+	height: 20px;
+	width: 20px;
+}
