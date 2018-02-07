@@ -5,18 +5,23 @@
 }
 
 #nav{
-	padding: 15px;
+	padding: 0px;
 	box-shadow: #fdd200ad 0px -4px 50px;
 }
 
 #sticky_note{
-	margin-left: 55px;
-	width: 1100px;
+	width: 800px;
+}
+
+#headerWrapper{
+	margin-left: 16%;
+	width: 80%;
+	margin-top: 1%;
 }
 
 #bulb{
-	margin-left: 50px;
-    margin-top: -5px;
+    margin-left: 86%;
+    margin-top: -7%;
 }
 
 img{
