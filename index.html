@@ -4,19 +4,22 @@
 	<title>Open Drive</title>
 	<link rel="stylesheet" type="text/css" href="src/css/style.css">
 	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-	<script type="text/javascript" src="src/js/script.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
 	    <div id="headerWrapper">
-	    	<div class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="text" id="sticky_note" placeholder="make a sticky note...">
-	      <button class="btn btn-warning my-2 my-sm-0" onclick="insertTextNote()">Save</button>
-	    </div>
+		    <div class="form-inline my-2 my-lg-0">
+		      <input class="form-control mr-sm-2" type="text" id="sticky_note" placeholder="make a sticky note...">
+		      <button class="btn btn-warning my-2 my-sm-0" onclick="insertTextNote()">Save</button>
+		      <button class="btn btn-success" id="uploadFilePlus" data-toggle="modal" data-target="#uploadFileModal">
+		      	<img src="src/media/upload.png">
+		      </button>
+		    </div>
 
 	    <a href="https://github.com/rathiankush123/openDrive" target="_blank">
 			<div class="btn btn-default btn-sm" id="bulb">
@@ -26,8 +29,43 @@
 	    </div>
 	</nav>
 
-	<div id="board">
-		
+	<div id="board"></div>
+
+	<!-- Modal for file upload-->
+	<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Upload a file</h5>
+				</div>
+				
+				<!-- Modal Body -->
+				<div class="modal-body">
+						<div class="input-group">
+						  <div class="custom-file">
+						    <input type="file" class="form-control-file" id="uploadFile">
+						  </div>
+						    <button id="uploadBtn" class="btn btn-success" type="button" onclick="uploadFile()">Upload</button>
+						    <button id="spinnerAlpha" class="btn btn-success" type="button">
+						    	<div class="spinner" >
+								  <div class="bounce1"></div>
+								  <div class="bounce2"></div>
+								  <div class="bounce3"></div>
+								</div>
+							</button>
+						</div>
+				</div>
+
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.reload();">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
+
+<script type="text/javascript" src="src/js/script.js"></script>
 </body>
 </html>
