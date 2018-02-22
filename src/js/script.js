@@ -167,9 +167,12 @@ function downloadFile(fileName){
 		console.log("-------------------------");
 		console.log("### In case download doesn't work, click below URL to download "+fileName+".");
 		console.log(url);
-		console.log("### Allow your browser to open pop ups to work this smoothly.");
 		console.log("-------------------------");
-		window.open(url);
+
+		var link=document.createElement('a');
+		document.body.appendChild(link);
+		link.href=url;
+		link.click();
 	}).catch(function(error) {
 		console.log("### ERROR - while downloading "+fileName+".");
 	});
