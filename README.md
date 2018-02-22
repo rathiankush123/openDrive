@@ -1,6 +1,6 @@
 ## Open Drive
 
-**Currently** - A simulation of google keep.
+**Currently** - Sticky notes and file storage.
 
 I am exploring [firebase](https://firebase.google.com), so just thought of making a small app.
 
