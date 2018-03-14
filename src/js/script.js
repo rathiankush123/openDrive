@@ -24,6 +24,9 @@ var text_noteRef = firebase.database().ref('/text_notes/');
 // Get a reference to the root of storageFileNames Database
 var storageFileNamesRef = firebase.database().ref('/storageFileNames/');
 
+// var - if the file attached is uploaded or not
+isFileUploaded = false;
+
 // fetch all existing text_notes
 function getAllTextNotes(){
 	var count = 0;
@@ -81,7 +84,7 @@ function showTextNote(key, note){
 
 	var aXTag = document.createElement('a');
 	aXTag.id = "basic-addon2";
-	aXTag.className = "btn btn-danger";
+	aXTag.className = "btn btn-dark";
 	aXTag.setAttribute('onclick',"deleteNote('"+key+"')");
 	aXTag.innerHTML = "<img src='src/media/delete.png'>";
 
@@ -93,9 +96,9 @@ function showTextNote(key, note){
 
 	var aCopyTag = document.createElement('a');
 	aCopyTag.id = "basic-addon2";
-	aCopyTag.className = "btn btn-info";
+	aCopyTag.className = "btn btn-warning";
 	aCopyTag.setAttribute('onclick',"copyToClipboard('"+key+"')");
-	aCopyTag.innerHTML = "Copy";
+	aCopyTag.innerHTML = "<img src='src/media/copy.png'>";
 
 	innerMostDiv.appendChild(aCopyTag);
 	innerMostDiv.appendChild(aXTag);
@@ -132,8 +135,6 @@ function uploadFile() {
 	spinnerAlpha.style.display = "inline-block";
 	uploadBtn.style.display = "none";
 	
-	new Date();
-
 	var fileToUpload = document.getElementById("uploadFile").files[0];
 	var filenameArr = fileToUpload.name.split('.');
 	var newFileName = filenameArr[0] + "_" + Date.now() + "." + filenameArr[1];
@@ -143,6 +144,7 @@ function uploadFile() {
 		spinnerAlpha.style.display = "none";
 		uploadBtn.style.display = "inline-block";
 		insertFileName(newFileName);
+		isFileUploaded = true;
 	});
 }
 
@@ -163,6 +165,8 @@ function deleteFile(fileName, fileNamekey){
 
 function downloadFile(fileName){
 
+	alert("Starting download...");
+
 	storageRef.child(fileName).getDownloadURL().then(function(url) {
 		console.log("-------------------------");
 		console.log("### In case download doesn't work, click below URL to download "+fileName+".");
@@ -180,40 +184,96 @@ function downloadFile(fileName){
 
 function showFileNode(fileName, fileNamekey){
 
-	var board = document.getElementById("board");
+	var fileExtArr = fileName.split(".");
+	var fileExt = fileExtArr[fileExtArr.length-1];
 
-	var outerMostDiv = document.createElement('div');
-	outerMostDiv.id = "textBlock";
-	
-	var innerDiv = document.createElement('div');
-	innerDiv.className = "input-group mb-3";
+	var imgExt = ['png','jpeg','jpg','bmp','gif'];
 
-	var innerMostDiv = document.createElement('div');
-	innerMostDiv.className = "input-group-append";
+	if(imgExt.includes(fileExt)){
+		var board = document.getElementById("board");
 
-	var aXTag = document.createElement('a');
-	aXTag.id = "basic-addon2";
-	aXTag.className = "btn btn-danger";
-	aXTag.setAttribute('onclick',"deleteFile('"+fileName+"','"+fileNamekey+"')");
-	aXTag.innerHTML = "<img src='src/media/delete.png'>";
+		var outerMostDiv = document.createElement('div');
+		outerMostDiv.id = "textBlock";
+		
+		var innerDiv = document.createElement('div');
+		innerDiv.className = "input-group mb-3";
 
-	var inputTag = document.createElement('input');
-	inputTag.className = "form-control";
-	inputTag.value = fileName;
-	inputTag.setAttribute("disabled", "disabled"); 
+		var innerMostDiv = document.createElement('div');
+		innerMostDiv.className = "input-group-append";
 
-	var aCopyTag = document.createElement('a');
-	aCopyTag.id = "basic-addon2";
-	aCopyTag.className = "btn btn-info";
-	aCopyTag.setAttribute('onclick',"downloadFile('"+fileName+"')");
-	aCopyTag.innerHTML = "Download";
+		var aXTag = document.createElement('a');
+		aXTag.id = "basic-addon2";
+		aXTag.className = "btn btn-dark";
+		aXTag.setAttribute('onclick',"deleteFile('"+fileName+"','"+fileNamekey+"')");
+		aXTag.innerHTML = "<img src='src/media/delete.png'>";
 
-	innerMostDiv.appendChild(aCopyTag);
-	innerMostDiv.appendChild(aXTag);
-	innerDiv.appendChild(inputTag);
-	innerDiv.appendChild(innerMostDiv);
-	outerMostDiv.appendChild(innerDiv);
-	board.appendChild(outerMostDiv);
+		//preview of img
+		var imgTag = document.createElement('img');
+		imgTag.value = fileName;
+		imgTag.setAttribute("src", ""); 
+		imgTag.setAttribute("style", "height:38px; width:38px;");
+
+		storageRef.child(fileName).getDownloadURL().then(function(url) {
+			imgTag.setAttribute("src", url); 
+		}).catch(function(error) {
+			console.log("### ERROR - while showing preview of imgage file - "+fileName+".");
+		});
+
+		var inputTag = document.createElement('input');
+		inputTag.className = "form-control";
+		inputTag.value = fileName;
+		inputTag.setAttribute("disabled", "disabled"); 
+
+		var aCopyTag = document.createElement('a');
+		aCopyTag.id = "basic-addon2";
+		aCopyTag.className = "btn btn-warning";
+		aCopyTag.setAttribute('onclick',"downloadFile('"+fileName+"')");
+		aCopyTag.innerHTML = "<img src='src/media/download.png'>";
+
+		innerMostDiv.appendChild(aCopyTag);
+		innerMostDiv.appendChild(aXTag);
+		innerDiv.appendChild(inputTag);
+		innerDiv.appendChild(imgTag);
+		innerDiv.appendChild(innerMostDiv);
+		outerMostDiv.appendChild(innerDiv);
+		board.appendChild(outerMostDiv);
+
+	}else{
+		var board = document.getElementById("board");
+
+		var outerMostDiv = document.createElement('div');
+		outerMostDiv.id = "textBlock";
+		
+		var innerDiv = document.createElement('div');
+		innerDiv.className = "input-group mb-3";
+
+		var innerMostDiv = document.createElement('div');
+		innerMostDiv.className = "input-group-append";
+
+		var aXTag = document.createElement('a');
+		aXTag.id = "basic-addon2";
+		aXTag.className = "btn btn-dark";
+		aXTag.setAttribute('onclick',"deleteFile('"+fileName+"','"+fileNamekey+"')");
+		aXTag.innerHTML = "<img src='src/media/delete.png'>";
+
+		var inputTag = document.createElement('input');
+		inputTag.className = "form-control";
+		inputTag.value = fileName;
+		inputTag.setAttribute("disabled", "disabled"); 
+
+		var aCopyTag = document.createElement('a');
+		aCopyTag.id = "basic-addon2";
+		aCopyTag.className = "btn btn-warning";
+		aCopyTag.setAttribute('onclick',"downloadFile('"+fileName+"')");
+		aCopyTag.innerHTML = "<img src='src/media/download.png'>";
+
+		innerMostDiv.appendChild(aCopyTag);
+		innerMostDiv.appendChild(aXTag);
+		innerDiv.appendChild(inputTag);
+		innerDiv.appendChild(innerMostDiv);
+		outerMostDiv.appendChild(innerDiv);
+		board.appendChild(outerMostDiv);
+	}
 }
 
 
@@ -243,6 +303,15 @@ function insertFileName(fileName){
 	storageFileNamesRef.push().set({
 	  file: fileName
 	});
+}
+
+function closeUploadDialog(){
+	if(isFileUploaded){
+		location.reload();
+	}else{
+		
+	}
+	isFileUploaded = false;
 }
 
 //handle showing textNotes

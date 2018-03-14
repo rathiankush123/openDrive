@@ -15,8 +15,8 @@
 	    <div id="headerWrapper">
 		    <div class="form-inline my-2 my-lg-0">
 		      <input class="form-control mr-sm-2" type="text" id="sticky_note" placeholder="make a sticky note...">
-		      <button class="btn btn-warning my-2 my-sm-0" onclick="insertTextNote()">Save</button>
-		      <button class="btn btn-success" id="uploadFilePlus" data-toggle="modal" data-target="#uploadFileModal">
+		      <button class="btn btn-success my-2 my-sm-0" onclick="insertTextNote()">Save</button>
+		      <button class="btn btn-info" id="uploadFilePlus" data-toggle="modal" data-target="#uploadFileModal">
 		      	<img src="src/media/upload.png">
 		      </button>
 		    </div>
@@ -60,7 +60,7 @@
 
 				<!-- Modal Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.reload();">Close</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeUploadDialog();">Close</button>
 				</div>
 			</div>
 		</div>
