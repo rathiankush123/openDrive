@@ -5,27 +5,24 @@
 	<link rel="stylesheet" type="text/css" href="src/css/style.css">
 	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
 	    <div id="headerWrapper">
+		
 		    <div class="form-inline my-2 my-lg-0">
+			<button class="btn btn-dark" onclick=" window.open('https://github.com/rathiankush123/openDrive','_blank')" style="margin-right:1%">
+				<img src="src/media/bulb.png">
+			</button>
 		      <input class="form-control mr-sm-2" type="text" id="sticky_note" placeholder="make a sticky note...">
 		      <button class="btn btn-success my-2 my-sm-0" onclick="insertTextNote()">Save</button>
 		      <button class="btn btn-info" id="uploadFilePlus" data-toggle="modal" data-target="#uploadFileModal">
 		      	<img src="src/media/upload.png">
 		      </button>
 		    </div>
-
-	    <a href="https://github.com/rathiankush123/openDrive" target="_blank">
-			<div class="btn btn-default btn-sm" id="bulb">
-				<img src="src/media/bulb.png">
-			</div>
-		</a>
 	    </div>
 	</nav>
 
